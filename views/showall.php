@@ -1,7 +1,7 @@
 <?php
 $showall = '';
 $showall .= "<table>";
-$db = fopen("../models/db.csv","r");
+$db = fopen("../models/sf-landmarks.csv","r");
 
 $rows = fgetcsv($db);
 $showall .= "<tr>";

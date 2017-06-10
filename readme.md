@@ -8,4 +8,4 @@ highly portable, not scalable.
 
 TO DO
 
-- Pretty much everything
+- Row and column selection for insert and search functions

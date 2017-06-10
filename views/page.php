@@ -10,6 +10,7 @@
 			padding:4px;
 		}
 	</style>
+	<?php include("../controllers/head.php"); ?>
 	<script>
 		function showall() {
 			var xmlhttp = new XMLHttpRequest();
@@ -33,10 +34,26 @@
 			xmlhttp.open("GET", "../controllers/search.php?term=" + term, true);
 			xmlhttp.send();	
 		}
+		
+		function insert() {
+			var usrinpt = "";
+			for(var a=1; a<<?=$headcount?>; a++) {
+				usrinpt += document.getElementById("field"+a).value + "|";
+			}
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					showall();
+				}
+			};
+			xmlhttp.open("GET", "../controllers/insert.php?usrinpt=" + usrinpt, true);
+			xmlhttp.send();	
+		}
 	</script>
 </head>
 
 <body>
+<?php include("../views/input.php"); ?>
 <input type="text" id="term" placeholder="Search Database">
 <br>
 <input type="button" value="Search" onclick="search();">

@@ -1,12 +1,13 @@
 <?php
-// Open db and read first line for headers; append to variable 
-$headers = '';
-$file = fopen("../models/db.csv","r");
+include("../models/db.php");
+$headers = [];
+$file = fopen($db,"r");
 $heads = fgetcsv($file);
 for($i=0; $i<count($heads); $i++) {
-	$headers .= $heads[$i]."<br>"; // <- Change output formatting here
+	array_push($headers, $heads[$i]);
 }
+$headcount = count($headers);
 fclose($file);
 // echo for AJAX call
-echo $showall;
+//echo $headers;
 ?>

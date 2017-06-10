@@ -1,18 +1,19 @@
 <?php
+include("../models/db.php");
 $showall = '';
 $showall .= "<table>";
-$db = fopen("../models/sf-landmarks.csv","r");
+$connect = fopen($db,"r");
 
-$rows = fgetcsv($db);
+$rows = fgetcsv($connect);
 $showall .= "<tr>";
 for($hd=0; $hd<count($rows); $hd++) {
 	$showall .= "<th>".$rows[$hd]."</th>";
 }
 $showall .= "</tr>";
 
-while (! feof($db)) {
-	$rows = fgetcsv($db);
-	for($y=0; $y<count($db); $y++) {
+while (! feof($connect)) {
+	$rows = fgetcsv($connect);
+	for($y=0; $y<count($connect); $y++) {
 		$showall .= "<tr>";
 		for($x=0; $x<count($rows); $x++) {
 			$showall .= "<td>".$rows[$x]."</td>";
@@ -21,7 +22,7 @@ while (! feof($db)) {
 	}
 }
 $showall .= "</table>";
-fclose($db);
+fclose($connect);
 // echo for AJAX call
 echo $showall;
 ?>

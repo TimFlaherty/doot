@@ -36,10 +36,13 @@
 		}
 		
 		function insert() {
+			var limit = <?=$headcount?>;
 			var usrinpt = "";
-			for(var a=1; a<<?=$headcount?>; a++) {
+			for(var a=1; a<=limit; a++) {
 				usrinpt += document.getElementById("field"+a).value + "|";
 			}
+			window.alert(usrinpt);
+			
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -47,7 +50,8 @@
 				}
 			};
 			xmlhttp.open("GET", "../controllers/insert.php?usrinpt=" + usrinpt, true);
-			xmlhttp.send();	
+			xmlhttp.send();
+			
 		}
 	</script>
 </head>

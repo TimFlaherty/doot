@@ -41,8 +41,6 @@
 			for(var a=1; a<=limit; a++) {
 				usrinpt += document.getElementById("field"+a).value + "|";
 			}
-			window.alert(usrinpt);
-			
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -53,6 +51,23 @@
 			xmlhttp.send();
 			
 		}
+		
+		function update() {
+			//TO DO generate field heading select list from db 
+			upcol = "0";//document.getElementById("upcol").value;
+			upcell = document.getElementById("upcell").value;
+			upvalue = document.getElementById("upvalue").value;
+			upinpt = upcol + "|" + upcell + "|" + upvalue;
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					showall();
+				}
+			};
+			xmlhttp.open("GET", "../controllers/update.php?upinpt=" + upinpt, true);
+			xmlhttp.send();	
+		}
+		
 	</script>
 </head>
 
@@ -61,6 +76,16 @@
 <input type="text" id="term" placeholder="Search Database">
 <br>
 <input type="button" value="Search" onclick="search();">
+<br>
+<br>
+Select column:
+<br>
+<input type="text" id="upcell" placeholder="Enter Target Value">
+<br>
+<br>
+<input type="text" id="upvalue" placeholder="Enter New Value Here">
+<br>
+<input type="button" value="Update" onclick="update();">
 <br>
 <br>
 <input type="button" value="Display Entire Database" onclick="showall();">

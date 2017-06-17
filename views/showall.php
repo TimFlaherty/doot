@@ -14,7 +14,7 @@ $showall .= "</tr>";
 
 while (! feof($connect)) {
 	$rows = fgetcsv($connect);
-	if (empty($rows) == 0) { // account for blank rows
+	if (! empty($rows)) { // account for blank rows
 		for($y=0; $y<count($connect); $y++) {
 			$showall .= "<tr>";
 			for($x=0; $x<count($rows); $x++) {

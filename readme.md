@@ -8,4 +8,4 @@ highly portable, not scalable.
 
 TO DO
 
-- Row and column selection for insert and search functions
+- Add field heading select list generated from db

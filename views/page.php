@@ -53,8 +53,7 @@
 		}
 		
 		function update() {
-			//TO DO generate field heading select list from db 
-			upcol = "0";//document.getElementById("upcol").value;
+			upcol = document.getElementById("upcol").value;
 			upcell = document.getElementById("upcell").value;
 			upvalue = document.getElementById("upvalue").value;
 			upinpt = upcol + "|" + upcell + "|" + upvalue;
@@ -80,12 +79,26 @@
 <br>
 Select column:
 <br>
+<?php
+//Generate field heading select list from db 
+	$headkey = 0;
+	$slct = "<select id='upcol'>";
+	foreach($headers as $field){
+		$slct .= "<option value=".$headkey.">".$field."</option>";
+		$headkey++;
+	}
+	$slct .= "/<select>";
+	echo $slct;
+?>
+<br>
+<br>
 <input type="text" id="upcell" placeholder="Enter Target Value">
 <br>
 <br>
 <input type="text" id="upvalue" placeholder="Enter New Value Here">
 <br>
 <input type="button" value="Update" onclick="update();">
+<br>
 <br>
 <br>
 <input type="button" value="Display Entire Database" onclick="showall();">

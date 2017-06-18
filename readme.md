@@ -8,4 +8,4 @@ highly portable, not scalable.
 
 TO DO
 
-- Add field heading select list generated from db
+- Expand update function to include multiple conditions

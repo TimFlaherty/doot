@@ -1,33 +1,34 @@
 <?php
 include("../models/db.php");
+include("../controllers/head.php");
 $usrinpt = $_REQUEST["upinpt"];
 
 $upparts = explode("|", $usrinpt);
 
-$linenum = 0;
 $file = file($db);
 $trgtcol = $upparts[0];
 $trgtcell = $upparts[1];
-$newvalue = $upparts[2];
+$newcol = $upparts[2];
+$newvalue = $upparts[3];
 $lineray = [];
-
-foreach ($file as $line) {
-	$cellray = [];
-	$ln = '';
-	$cellnum = 0;
+for($a=0; $a<count($file); $a++) {
+	$cellstring = '';
+	$line = rtrim($file[$a]);
 	$cells = explode(",", $line);
-    foreach ($cells as $cell) {
-    	if ($cells[$trgtcol] == $trgtcell && $cell == $trgtcell) {
-    		$cell = $newvalue;
-    	}
-    	array_push($cellray, $cell);
-    	$cellnum++;
+    for($b=0; $b<count($cells); $b++) {
+    	if ($cells[$trgtcol] == $trgtcell && $b == $newcol) {
+			$cellstring .= $newvalue;
+    	} else {
+			$cellstring .= $cells[$b];
+		}
+		if($b<(count($cells)-1)) {
+			$cellstring .= ",";
+		} else {
+			$cellstring .= "\n";
+		}
     }
-    $ln = implode(",", $cellray);
-    array_push($lineray, $ln);
-    $linenum++;
+    array_push($lineray, $cellstring);
 }
-
 $dbfile = fopen($db, "w");
 $linewrite = implode("", $lineray);
 fwrite($dbfile, $linewrite);

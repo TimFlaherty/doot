@@ -55,8 +55,9 @@
 		function update() {
 			upcol = document.getElementById("upcol").value;
 			upcell = document.getElementById("upcell").value;
-			upvalue = document.getElementById("upvalue").value;
-			upinpt = upcol + "|" + upcell + "|" + upvalue;
+			newcol = document.getElementById("newcol").value;
+			newvalue = document.getElementById("newvalue").value;
+			upinpt = upcol + "|" + upcell + "|" + newcol + "|" + newvalue;
 			var xmlhttp = new XMLHttpRequest();
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
@@ -67,6 +68,17 @@
 			xmlhttp.send();	
 		}
 		
+		function backup() {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					window.alert(this.responseText);
+					showall();
+				}
+			};
+			xmlhttp.open("GET", "../models/backup.php", true);
+			xmlhttp.send();	
+		}
 	</script>
 </head>
 
@@ -77,25 +89,33 @@
 <input type="button" value="Search" onclick="search();">
 <br>
 <br>
-Select column:
-<br>
+Where
 <?php
 //Generate field heading select list from db 
 	$headkey = 0;
 	$slct = "<select id='upcol'>";
 	foreach($headers as $field){
-		$slct .= "<option value=".$headkey.">".$field."</option>";
+		$slct .= "<option value='".$headkey."'>".$field."</option>";
 		$headkey++;
 	}
-	$slct .= "/<select>";
+	$slct .= "</select>";
 	echo $slct;
 ?>
-<br>
-<br>
-<input type="text" id="upcell" placeholder="Enter Target Value">
-<br>
-<br>
-<input type="text" id="upvalue" placeholder="Enter New Value Here">
+ = <input type="text" id="upcell" placeholder="Enter Target Value">,
+change
+<?php
+//Generate field heading select list from db 
+	$headkey = 0;
+	$slct = "<select id='newcol'>";
+	foreach($headers as $field){
+		$slct .= "<option value='".$headkey."'>".$field."</option>";
+		$headkey++;
+	}
+	$slct .= "</select>";
+	echo $slct;
+?>
+to
+<input type="text" id="newvalue" placeholder="Enter New Value Here">
 <br>
 <input type="button" value="Update" onclick="update();">
 <br>
@@ -105,6 +125,11 @@ Select column:
 <br>
 <br>
 <div id="out"></div>
+<br>
+<br>
+<br>
+<input type="button" value="Restore Database" onclick="backup();">
+<br>
 </body>
 
 </html>

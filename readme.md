@@ -8,4 +8,6 @@ highly portable, not scalable.
 
 TO DO
 
-- Expand update function to include multiple conditions
+ - Clean up and annotate
+
+ - Expand functionality
